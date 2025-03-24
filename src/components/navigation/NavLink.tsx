@@ -1,18 +1,16 @@
-import BTNav from "react-bootstrap/Nav";
+import { Nav as BootstrapNav } from "react-bootstrap";
 import { Link } from "react-router";
 
-interface NavLinkProps {
+interface INavLinkProps {
   to: string;
   title: string;
 }
 
-function NavLink(props: NavLinkProps) {
+function NavLink(props: INavLinkProps) {
   return (
-    <>
-      <BTNav.Link as={Link} to={props.to}>
-        {props.title}
-      </BTNav.Link>
-    </>
+    <BootstrapNav.Link as={Link} to={props.to}>
+      {props.title}
+    </BootstrapNav.Link>
   );
 }
 
