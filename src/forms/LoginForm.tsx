@@ -10,6 +10,8 @@ export class LoginFormValues {
 
 interface ILoginFormProps {
   initialValues: LoginFormValues
+  onSubmit: (values: LoginFormValues) => void;
+  submitErrorMessage?: string;
 }
 
 function LoginForm(props: ILoginFormProps) {
@@ -18,16 +20,12 @@ function LoginForm(props: ILoginFormProps) {
     password: yup.string().required(),
   })
 
-  function onSubmit(values: any) {
-    console.log("submitting");
-    console.log(values);
-  }
-
   return (
     <Form
       initialValues={props.initialValues}
       validationSchema={validationSchema}
-      onSubmit={onSubmit}
+      onSubmit={props.onSubmit}
+      submitErrorMessage={props.submitErrorMessage}
     >
       <Input type="text" name="name" label="Uživatelské jméno" />
       <Input type="text" name="password" label="Heslo" />
