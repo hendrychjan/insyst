@@ -15,6 +15,8 @@ import { AuthProvider } from "./providers/AuthProvider";
 import LogoutPage from "./pages/logout/LogoutPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import { ProtectedRoute } from "./providers/ProtectedRoute";
+import LocationsPage from "./pages/locations/LocationsPage";
+import { DialogProvider } from "./providers/DialogProvider";
 
 // Setup axios headers
 axios.defaults.baseURL = import.meta.env.VITE_API_URL!;
@@ -31,22 +33,22 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AuthProvider>
       <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          
-          {/* Auth */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/logout" element={<LogoutPage />} />
-          
-          {/* Profile */}
-          <Route element={<ProtectedRoute />}>
-            <Route path="/profile" element={<ProfilePage />} />
-          </Route>
+        <DialogProvider>
+          <Navbar />
+          <Routes>
+            {/* Public */}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/logout" element={<LogoutPage />} />
 
-          {/* Common */}
-          <Route path="/dashboard" element={<DashboardPage />} />
-        </Routes>
+            {/* Private */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/locations" element={<LocationsPage />} />
+            </Route>
+          </Routes>
+        </DialogProvider>
       </BrowserRouter>
     </AuthProvider>
   </StrictMode>

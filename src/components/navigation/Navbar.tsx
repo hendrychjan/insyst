@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import BTContainer from "react-bootstrap/Container";
 import BTNav from "react-bootstrap/Nav";
 import BTNavbar from "react-bootstrap/Navbar";
+import Form from "react-bootstrap/Form";
 import { Link } from "react-router";
 import NavLink from "./NavLink";
 import { useAuth } from "../../providers/AuthProvider";
@@ -10,6 +11,7 @@ function Navbar() {
   const { user } = useAuth();
   const navbarRef = useRef<HTMLElement | null>(null);
   const [navbarHeight, setNavbarHeight] = useState(0);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     if (navbarRef.current) {
@@ -17,12 +19,16 @@ function Navbar() {
     }
   }, []);
 
+  const toggleTheme = () => {
+    setIsDarkMode((prev) => !prev);
+    document.body.setAttribute("data-bs-theme", isDarkMode ? "light" : "dark");
+  };
+
   return (
     <>
       <BTNavbar
         fixed="top"
         expand="lg"
-        className="bg-body-tertiary"
         ref={navbarRef}
       >
         <BTContainer>
@@ -56,6 +62,15 @@ function Navbar() {
                 </b>
               )}
             </BTNav>
+            <Form className="d-flex align-items-center">
+              <Form.Check
+                type="switch"
+                id="theme-switch"
+                label={isDarkMode ? "Dark Mode" : "Light Mode"}
+                checked={isDarkMode}
+                onChange={toggleTheme}
+              />
+            </Form>
           </BTNavbar.Collapse>
         </BTContainer>
       </BTNavbar>
@@ -65,7 +80,6 @@ function Navbar() {
         style={{
           height: navbarHeight + "px",
           width: "100vw",
-          backgroundColor: "red",
         }}
       ></div>
     </>

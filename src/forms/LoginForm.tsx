@@ -1,5 +1,5 @@
-import Form from "../components/input/Form";
 import * as yup from "yup";
+import Form from "../components/input/Form";
 import Input from "../components/input/Input";
 import Button from "../components/input/Button";
 
@@ -9,16 +9,16 @@ export class LoginFormValues {
 }
 
 interface ILoginFormProps {
-  initialValues: LoginFormValues
+  initialValues: LoginFormValues;
   onSubmit: (values: LoginFormValues) => void;
   submitErrorMessage?: string;
 }
 
-function LoginForm(props: ILoginFormProps) {
+export default function LoginForm(props: ILoginFormProps) {
   const validationSchema = yup.object().shape({
     name: yup.string().required(),
     password: yup.string().required(),
-  })
+  });
 
   return (
     <Form
@@ -28,10 +28,8 @@ function LoginForm(props: ILoginFormProps) {
       submitErrorMessage={props.submitErrorMessage}
     >
       <Input type="text" name="name" label="Uživatelské jméno" />
-      <Input type="text" name="password" label="Heslo" />
+      <Input type="password" name="password" label="Heslo" />
       <Button type="submit">Přihlásit se</Button>
     </Form>
   );
-};
-
-export default LoginForm;
+}
